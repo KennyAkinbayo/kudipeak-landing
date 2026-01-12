@@ -1,5 +1,7 @@
 // src/LandingPage.jsx
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import { Send, Wallet, Activity } from "lucide-react";
+
 import "./landing.css";
 
 export default function LandingPage() {
@@ -16,6 +18,14 @@ export default function LandingPage() {
   );
 
   const [legalOpen, setLegalOpen] = useState(null); // "privacy" | "terms" | null
+
+  // ✅ Prevent "double scroll" feel: lock background scroll when modal is open
+  useEffect(() => {
+    if (legalOpen) document.body.classList.add("kp-modalOpen");
+    else document.body.classList.remove("kp-modalOpen");
+
+    return () => document.body.classList.remove("kp-modalOpen");
+  }, [legalOpen]);
 
   return (
     <div className="kp-page">
@@ -214,7 +224,9 @@ export default function LandingPage() {
 
           <div className="kp-grid3">
             <div className="kp-card">
-              <div className="kp-icon" aria-hidden="true" />
+              <div className="kp-iconWrap" aria-hidden="true">
+                <Send className="kp-iconSvg" />
+              </div>
               <h3 className="kp-h3">Fast transfers</h3>
               <p className="kp-p">
                 Send money quickly with clear transaction statuses and receipts.
@@ -222,7 +234,9 @@ export default function LandingPage() {
             </div>
 
             <div className="kp-card">
-              <div className="kp-icon" aria-hidden="true" />
+              <div className="kp-iconWrap" aria-hidden="true">
+                <Wallet className="kp-iconSvg" />
+              </div>
               <h3 className="kp-h3">Wallet funding</h3>
               <p className="kp-p">
                 Fund your wallet and move money smoothly between your accounts.
@@ -230,7 +244,9 @@ export default function LandingPage() {
             </div>
 
             <div className="kp-card">
-              <div className="kp-icon" aria-hidden="true" />
+              <div className="kp-iconWrap" aria-hidden="true">
+                <Activity className="kp-iconSvg" />
+              </div>
               <h3 className="kp-h3">Activity tracking</h3>
               <p className="kp-p">
                 A clean activity feed so users always know what happened and
