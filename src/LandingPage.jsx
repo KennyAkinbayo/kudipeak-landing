@@ -20,10 +20,9 @@ export default function LandingPage() {
   const [legalOpen, setLegalOpen] = useState(null); // "privacy" | "terms" | null
 
   // ✅ Prevent "double scroll" feel: lock background scroll when modal is open
-  useEffect(() => {
-    if (legalOpen) document.body.classList.add("kp-modalOpen");
-    else document.body.classList.remove("kp-modalOpen");
 
+  useEffect(() => {
+    document.body.classList.toggle("kp-modalOpen", !!legalOpen);
     return () => document.body.classList.remove("kp-modalOpen");
   }, [legalOpen]);
 

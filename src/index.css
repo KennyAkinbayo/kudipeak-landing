@@ -1,15 +1,17 @@
-/* src/index.css */
+/* src/index.css - clean global reset for landing */
+
 html,
 body {
   margin: 0;
   padding: 0;
   width: 100%;
-  min-height: 100%;
-  overflow-x: hidden;
+  height: 100%;
 }
 
 body {
-  display: block;
+  display: block; /* ✅ remove Vite flex centering */
+  min-height: 100%;
+  overflow-x: hidden;
 }
 
 #root {

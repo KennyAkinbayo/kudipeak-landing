@@ -1,23 +1,51 @@
-/* ✅ SINGLE-SCROLL FIX (body-only scrolling) */
+/* =========================================
+   ✅ KudiPeak Landing — SINGLE SCROLLBAR
+   ========================================= */
+
+/* ✅ Make ONLY the root page (html) scroll.
+   This avoids the html+body double-scroll issue in many setups. */
 html {
   height: 100%;
-  overflow: hidden; /* ✅ html NEVER scrolls */
+  overflow-y: auto; /* ✅ single scrollbar here */
+  overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 body {
   min-height: 100%;
-  overflow-y: auto; /* ✅ ONLY body scrolls */
-  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow: visible; /* ✅ body never becomes a scroll container */
+  background: #0b0f14;
+  color: #ffffff;
 }
 
+/* ✅ Lock scrolling when modal is open */
+body.kp-modalOpen {
+  overflow: hidden;
+}
+
+/* ✅ React root must never scroll */
 #root {
   min-height: 100vh;
   overflow: visible;
 }
 
-/* IMPORTANT: page wrapper must NOT scroll */
+/* ✅ Page wrapper must never scroll */
 .kp-page {
+  min-height: 100vh;
+  position: relative;
   overflow: visible;
+}
+
+/* ✅ Prevent accidental horizontal overflow globally */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
 }
 
 :root {
@@ -33,37 +61,6 @@ body {
   --brand: #34d399;
   --brand2: rgba(52, 211, 153, 0.18);
   --shadow: rgba(52, 211, 153, 0.22);
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    sans-serif;
-}
-
-html {
-  scroll-behavior: smooth;
-  overflow-x: hidden; /* ✅ prevents tiny horizontal overflow */
-}
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  overflow-x: hidden; /* ✅ prevents tiny horizontal overflow */
-}
-
-/* ✅ lock scroll when modal is open */
-body.kp-modalOpen {
-  overflow: hidden;
-}
-
-/* Page wrapper */
-.kp-page {
-  min-height: 100vh;
-  position: relative;
-  overflow-x: hidden;
 }
 
 /* Background blobs */
@@ -162,7 +159,7 @@ body.kp-modalOpen {
   user-select: none;
   transition: transform 0.15s ease, background 0.15s ease,
     border-color 0.15s ease;
-  max-width: 100%; /* ✅ avoids rare overflow */
+  max-width: 100%;
 }
 
 .kp-btn:active {
@@ -309,7 +306,7 @@ body.kp-modalOpen {
 .kp-heroVisual {
   display: flex;
   justify-content: center;
-  overflow: hidden; /* ✅ prevents animation/cards from causing sideways scroll */
+  overflow: hidden; /* prevent sideways overflow from float cards */
 }
 
 .kp-phoneFloat {
@@ -448,7 +445,7 @@ body.kp-modalOpen {
   font-weight: 800;
   cursor: pointer;
   transition: background 0.15s ease;
-  max-width: 100%; /* ✅ avoids rare overflow */
+  max-width: 100%;
 }
 .kp-actBtn:hover {
   background: rgba(255, 255, 255, 0.1);
@@ -518,7 +515,6 @@ body.kp-modalOpen {
   color: rgba(255, 255, 255, 0.92);
 }
 
-/* Subtle "live" animation for rows */
 .kp-rowAnim1 {
   animation: shimmerIn 6s ease-in-out infinite;
 }
@@ -671,7 +667,8 @@ body.kp-modalOpen {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.kp-icon {
+/* ✅ Feature icons (Lucide) */
+.kp-iconWrap {
   width: 42px;
   height: 42px;
   border-radius: 16px;
@@ -679,6 +676,15 @@ body.kp-modalOpen {
   border: 1px solid rgba(52, 211, 153, 0.28);
   box-shadow: 0 0 24px rgba(52, 211, 153, 0.12);
   margin-bottom: 12px;
+  display: grid;
+  place-items: center;
+}
+
+.kp-iconSvg {
+  width: 22px;
+  height: 22px;
+  color: var(--brand);
+  display: block;
 }
 
 .kp-h3 {
@@ -951,22 +957,4 @@ body.kp-modalOpen {
     flex-direction: column;
     align-items: flex-start;
   }
-}
-
-.kp-iconWrap {
-  width: 42px;
-  height: 42px;
-  border-radius: 16px;
-  background: rgba(52, 211, 153, 0.18);
-  border: 1px solid rgba(52, 211, 153, 0.28);
-  box-shadow: 0 0 24px rgba(52, 211, 153, 0.12);
-  margin-bottom: 12px;
-  display: grid;
-  place-items: center;
-}
-
-.kp-iconSvg {
-  width: 22px;
-  height: 22px;
-  color: var(--brand);
 }
